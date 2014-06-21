@@ -1,10 +1,3 @@
-/*
- * common.h
- *
- *  Created on: 2014/06/21
- *      Author: hitoshi
- */
-
 #ifndef COMMON_H_
 #define COMMON_H_
 

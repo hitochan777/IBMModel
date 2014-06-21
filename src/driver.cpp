@@ -1,6 +1,6 @@
 #include "IBM1.h"
 
-int main(){
+int main(int argc,char** argv){
 	string output = "output.txt";
 	IBM1 ibm1(argv[1], argv[2]);
 	//ibm1.showTranslationTable();

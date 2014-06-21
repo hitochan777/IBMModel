@@ -17,7 +17,7 @@ typedef map<string, double> TotalTable;
 
 class IBM1 {
 
-private:
+protected:
 	TTable t;
 	CTable ct;
 	TotalTable tt;
@@ -28,6 +28,7 @@ public:
 	IBM1(char* ffilename, char* efilename);
 
 	~IBM1();
+
 	void showTranslationTable();
 
 	void showCountTable();
@@ -38,8 +39,10 @@ public:
 
 	void writeTranslationTableToFile(string filename);
 
+	double getTranslationProbability(string from, string to);
+
 	void writeTranslationTableToFile(string filename, string word);
-private:
+protected:
 
 	void writeTranslationTable(ostream &s);
 

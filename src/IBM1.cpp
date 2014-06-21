@@ -14,6 +14,11 @@ IBM1::~IBM1() {
 	efin.clear();
 }
 
+double IBM1::getTranslationProbability(string from, string to){
+	SSP p(to, from);
+	return t[p];
+}
+
 void IBM1::showTranslationTable() {
 	writeTranslationTable (cout);
 }
