@@ -4,19 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/AlignmentDistributionElement.cpp \
 ../src/IBM1.cpp \
 ../src/IBM2.cpp \
 ../src/driver.cpp 
 
 OBJS += \
-./src/AlignmentDistributionElement.o \
 ./src/IBM1.o \
 ./src/IBM2.o \
 ./src/driver.o 
 
 CPP_DEPS += \
-./src/AlignmentDistributionElement.d \
 ./src/IBM1.d \
 ./src/IBM2.d \
 ./src/driver.d 

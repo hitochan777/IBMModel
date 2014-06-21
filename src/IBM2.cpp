@@ -17,7 +17,11 @@ void IBM2::EM(){
 
 		getInitializedCountTable(); //init every element of count table to zero
 		getInitializedTotalTable();
+		getInitializedCountAlignmentTable();
+		getInitializedTotalAlignmentTable();
+
 		fsrefresh();
+
 		while (true) {
 			spair = getSentencePair(f, e);
 			if (spair.first.empty() || spair.second.empty()) {
@@ -59,4 +63,10 @@ void IBM2::EM(){
 	return;
 }
 
+void IBM2::getInitializedCountAlignmentTable(){
 
+}
+
+void IBM2::getInitializedTotalAlignmentTable(){
+
+}
