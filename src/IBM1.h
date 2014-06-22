@@ -59,11 +59,11 @@ protected:
 
 	void getUniqueWords();
 
-	void getInitializedTranslationTable();
+	void initializeTranslationTable();
 
-	void getInitializedCountTable();
+	void initializeCountTable();
 
-	void getInitializedTotalTable();
+	void initializeTotalTable();
 
 };
 #endif /* IMB1_H_ */

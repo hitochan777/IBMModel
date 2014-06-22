@@ -4,7 +4,7 @@ IBM1::IBM1(char* ffilename, char* efilename) {
 	ffin.open(ffilename);
 	efin.open(efilename);
 	getUniqueWords();
-	getInitializedTranslationTable();
+	initializeTranslationTable();
 	EM();
 }
 
@@ -99,8 +99,8 @@ void IBM1::EM() {
 		n++;
 		LL[n % 2] = 0;
 
-		getInitializedCountTable(); //init every element of count table to zero
-		getInitializedTotalTable();
+		initializeCountTable(); //init every element of count table to zero
+		initializeTotalTable();
 		fsrefresh();
 		while (true) {
 			spair = getSentencePair();
@@ -185,7 +185,7 @@ void IBM1::getUniqueWords() {
 	return;
 }
 
-void IBM1::getInitializedTranslationTable() {
+void IBM1::initializeTranslationTable() {
 	int elen = es.size();
 	for (SS::iterator fit = fs.begin(); fit != fs.end(); ++fit) {
 		for (SS::iterator eit = es.begin(); eit != es.end(); ++eit) {
@@ -197,14 +197,14 @@ void IBM1::getInitializedTranslationTable() {
 	return;
 }
 
-void IBM1::getInitializedCountTable() {
+void IBM1::initializeCountTable() {
 	for (TTable::iterator it = t.begin(); it != t.end(); ++it) {
 		ct[it->first] = 0;
 	}
 	return;
 }
 
-void IBM1::getInitializedTotalTable() {
+void IBM1::initializeTotalTable() {
 	for (SS::iterator it = fs.begin(); it != fs.end(); ++it) {
 		tt[*it] = 0;
 	}

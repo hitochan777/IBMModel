@@ -14,8 +14,8 @@ void IBM2::EM(){
 		n++;
 		LL[n % 2] = 0;
 
-		getInitializedCountTable(); //init every element of count table to zero
-		getInitializedTotalTable();
+		initializeCountTable(); //init every element of count table to zero
+		initializeTotalTable();
 		initializeCountAlignmentTable();
 		initializeTotalAlignmentTable();
 
