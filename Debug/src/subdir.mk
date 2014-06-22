@@ -6,16 +6,19 @@
 CPP_SRCS += \
 ../src/IBM1.cpp \
 ../src/IBM2.cpp \
+../src/Utility.cpp \
 ../src/driver.cpp 
 
 OBJS += \
 ./src/IBM1.o \
 ./src/IBM2.o \
+./src/Utility.o \
 ./src/driver.o 
 
 CPP_DEPS += \
 ./src/IBM1.d \
 ./src/IBM2.d \
+./src/Utility.d \
 ./src/driver.d 
 
 

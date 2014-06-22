@@ -2,6 +2,7 @@
 #define IMB1_H_
 
 #include "common.h"
+#include "Utility.h"
 //#define DEBUG
 
 #define NULLWORD " "
@@ -40,8 +41,6 @@ public:
 
 	void writeTranslationTableToFile(string filename);
 
-	double getTranslationProbability(string from, string to);
-
 	void writeTranslationTableToFile(string filename, string word);
 
 
@@ -65,5 +64,16 @@ protected:
 
 	void initializeTotalTable();
 
+	void setTranslationProbability(string e,string f,double prob);
+
+	double getTranslationProbability(string e,string f);
+
+	void setWordCount(string e, string f, double prob);
+
+	double getWordCount(string e, string f);
+
+	void setWordTotal(string f,double val);
+
+	double getWordTotal(string f);
 };
 #endif /* IMB1_H_ */

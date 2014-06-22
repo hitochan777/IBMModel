@@ -1,6 +1,4 @@
-ein->a:1
- ->book:0.5
-buch->book:1
-haus->house:1
- ->the:0.5
-das->the:1
+hon->book:1
+ie->house:1
+ore->my:1
+kono->this:1

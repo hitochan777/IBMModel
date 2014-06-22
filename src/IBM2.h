@@ -4,16 +4,17 @@
 
 #include "IBM1.h"
 
-typedef map<pair<pair<unsigned int,unsigned int>,pair<unsigned int,unsigned int> >,double> CATABLE;//count table for alignment count_a(k|i,I,K)
-typedef map<pair<unsigned int,pair<unsigned int,unsigned int> >,double> TATABLE;//total table for alignment total_a(i,I,K)
+typedef map<pair<pair<ui,ui>,pair<ui,ui> >,double> CATABLE;//count table for alignment count_a(k|i,I,K)
+typedef map<pair<ui,pair<ui,ui> >,double> TATABLE;//total table for alignment total_a(i,I,K)
 typedef CATABLE ADTABLE;//alignment distribution table
-typedef vector<pair<unsigned int,unsigned int> > SLP;//sencence length pairs (le,lf)'s
+typedef vector<pair<ui,ui> > SLP;//sencence length pairs (le,lf)'s
 
 class IBM2:IBM1{
 protected:
 	CATABLE cat;
 	TATABLE tat;
 	ADTABLE adt;
+	SLP slp;
 
 public:
 	IBM2(char* ffilename, char* efilename);
@@ -25,7 +26,13 @@ private:
 	void initializeAlignmentDistributionTable();
 	void initializeCountAlignmentTable();
 	void initializeTotalAlignmentTable();
-	SLP getSentenceLengthPairs();
+	void getSentenceLengthPairs();
+	double getAlignmentProbability(ui k, ui i, ui I, ui K);
+	void setAlignmentProbability(ui k, ui i, ui I, ui K, double prob);
+	double getTotalAlignment(ui j, ui le, ui lf);
+	void setTotalAlignment(ui j, ui le, ui lf, double val);
+	double getCountAlignment(ui k, ui i, ui I, ui K);
+	void setCountAlignment(ui k, ui i, ui I, ui K, double prob);
 };
 
 

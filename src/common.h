@@ -9,8 +9,7 @@
 #include <algorithm>
 #include <sstream>
 #include <cmath>
-#include "Utility.h"
 
-
+typedef unsigned int ui;
 
 #endif /* COMMON_H_ */

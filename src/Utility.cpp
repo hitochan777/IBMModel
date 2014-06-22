@@ -1,9 +1,9 @@
 #include "Utility.h"
 
-unsigned int Utility::split(const string &txt, char ch) {
+ui Utility::split(const string &txt, char ch) {
 	vector<string> strs;
-	unsigned int pos = txt.find(ch);
-	unsigned int initialPos = 0;
+	ui pos = txt.find(ch);
+	ui initialPos = 0;
 	strs.clear();
 
 	// Decompose statement
@@ -21,9 +21,9 @@ unsigned int Utility::split(const string &txt, char ch) {
 	return strs.size();
 }
 
-unsigned int Utility::split(const string &txt, vector<string> &strs, char ch) {
-	unsigned int pos = txt.find(ch);
-	unsigned int initialPos = 0;
+ui Utility::split(const string &txt, vector<string> &strs, char ch) {
+	ui pos = txt.find(ch);
+	ui initialPos = 0;
 	strs.clear();
 
 	// Decompose statement

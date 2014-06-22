@@ -13,13 +13,6 @@ IBM1::~IBM1() {
 	efin.clear();
 }
 
-
-
-double IBM1::getTranslationProbability(string from, string to) {
-	SSP p(to, from);
-	return t[p];
-}
-
 void IBM1::showTranslationTable() {
 	writeTranslationTable(cout);
 }
@@ -124,8 +117,14 @@ void IBM1::EM() {
 			for (unsigned int j = 0; j < ev.size(); ++j) {
 				for (unsigned int k = 0; k < fv.size(); ++k) {
 					SSP p(ev[j], fv[k]);
-					ct[p] += t[p] / z[i];
-					tt[fv[k]] += t[p] / z[i];
+					double newval = this->getWordCount(ev[j], fv[k])
+							+ this->getTranslationProbability(ev[j], fv[k])
+									/ z[i];
+					this->setWordCount(ev[j], fv[k], newval);
+					newval = this->getWordTotal(fv[k])
+							+ this->getTranslationProbability(ev[j], fv[k])
+									/ z[i];
+					this->setWordTotal(fv[k], newval);
 				}
 				LL[n % 2] += log(z[i]);
 				i++;
@@ -134,10 +133,9 @@ void IBM1::EM() {
 
 		for (SS::iterator fit = fs.begin(); fit != fs.end(); ++fit) {
 			for (SS::iterator eit = es.begin(); eit != es.end(); ++eit) {
-				SSP p(*eit, *fit);
-				//cout << *eit << " " << *fit << endl;
-				//cout << tt[*fit] << endl;
-				t[p] = ct[p] / tt[*fit];
+				double newval = this->getWordCount(*eit, *fit)
+						/ this->getWordTotal(*fit);
+				this->setTranslationProbability(*eit, *fit, newval);
 			}
 		}
 		cout << LL[n % 2] << endl;
@@ -189,12 +187,42 @@ void IBM1::initializeTranslationTable() {
 	int elen = es.size();
 	for (SS::iterator fit = fs.begin(); fit != fs.end(); ++fit) {
 		for (SS::iterator eit = es.begin(); eit != es.end(); ++eit) {
-			SSP p(*eit, *fit);
-			t[p] = 1.0 / elen;
+			this->setTranslationProbability(*eit, *fit, 1.0 / elen);
 		}
 	}
 
 	return;
+}
+
+void IBM1::setTranslationProbability(string e, string f, double prob) {
+	SSP p(e, f);
+	t[p] = prob;
+	return;
+}
+
+double IBM1::getTranslationProbability(string e, string f) {
+	SSP p(e, f);
+	return t[p];
+}
+
+void IBM1::setWordCount(string e, string f, double prob) {
+	SSP p(e, f);
+	ct[p] = prob;
+	return;
+}
+
+double IBM1::getWordCount(string e, string f) {
+	SSP p(e, f);
+	return ct[p];
+}
+
+void IBM1::setWordTotal(string f, double val) {
+	tt[f] = val;
+	return;
+}
+
+double IBM1::getWordTotal(string f) {
+	return tt[f];
 }
 
 void IBM1::initializeCountTable() {
