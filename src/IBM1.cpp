@@ -5,7 +5,6 @@ IBM1::IBM1(char* ffilename, char* efilename) {
 	efin.open(efilename);
 	getUniqueWords();
 	getInitializedTranslationTable();
-	//showTranslationTable();
 	EM();
 }
 
@@ -14,13 +13,15 @@ IBM1::~IBM1() {
 	efin.clear();
 }
 
-double IBM1::getTranslationProbability(string from, string to){
+
+
+double IBM1::getTranslationProbability(string from, string to) {
 	SSP p(to, from);
 	return t[p];
 }
 
 void IBM1::showTranslationTable() {
-	writeTranslationTable (cout);
+	writeTranslationTable(cout);
 }
 
 void IBM1::showCountTable() {
@@ -67,23 +68,21 @@ void IBM1::writeTranslationTableToFile(string filename, string word) {
 
 void IBM1::writeTranslationTable(ostream &s) {
 	for (TTable::iterator it = t.begin(); it != t.end(); ++it) {
-		if (it->second > -LIMIT && it->second < LIMIT) {
-			continue;
+		if (it->second < 1 + LIMIT && it->second > 1 - LIMIT) {
+			s << it->first.second << "->" << it->first.first << ":"
+					<< it->second << endl;
 		}
-		s << it->first.second << "->" << it->first.first << ":" << it->second
-				<< endl;
 	}
 	return;
 }
 
 void IBM1::writeTranslationTable(ostream &s, string word) {
 	for (TTable::iterator it = t.begin(); it != t.end(); ++it) {
-		if (it->second > -LIMIT && it->second < LIMIT) {
-			continue;
-		}
-		if (it->first.second == word) {
-			s << it->first.second << "->" << it->first.first << ":"
-					<< it->second << endl;
+		if (it->second < 1 + LIMIT && it->second > 1 - LIMIT) {
+			if (it->first.second == word) {
+				s << it->first.second << "->" << it->first.first << ":"
+						<< it->second << endl;
+			}
 		}
 	}
 	return;
@@ -92,7 +91,7 @@ void IBM1::writeTranslationTable(ostream &s, string word) {
 void IBM1::EM() {
 	int n = 0;
 	double LL[2] = { 0 }; //log likelihood
-	string f, e;
+	//string f, e;
 	pair<vector<string>, vector<string> > spair;
 
 	while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
@@ -104,7 +103,7 @@ void IBM1::EM() {
 		getInitializedTotalTable();
 		fsrefresh();
 		while (true) {
-			spair = getSentencePair(f, e);
+			spair = getSentencePair();
 			if (spair.first.empty() || spair.second.empty()) {
 				break;
 			}
@@ -155,10 +154,11 @@ void IBM1::fsrefresh() {
 	efin.seekg(0);
 }
 
-pair<vector<string>, vector<string> > IBM1::getSentencePair(string &f, string &e) {
+SP IBM1::getSentencePair() {
 	vector<string> fv, ev;
-	if (getline(ffin, f) && getline(efin, e)) {
-		istringstream fss(f), ess(e);
+	string es, fs;
+	if (getline(ffin, fs) && getline(efin, es)) {
+		istringstream fss(fs), ess(es);
 		string word;
 		fv.push_back(NULLWORD);
 		while (fss >> word) {

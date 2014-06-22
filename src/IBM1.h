@@ -14,6 +14,7 @@ typedef set<string> SS;
 typedef map<SSP, double> TTable; //Translation table
 typedef map<SSP, double> CTable; //Count table
 typedef map<string, double> TotalTable;
+typedef pair<vector<string>,vector<string> > SP; //sentence pairs (e's, f's)
 
 class IBM1 {
 
@@ -42,6 +43,8 @@ public:
 	double getTranslationProbability(string from, string to);
 
 	void writeTranslationTableToFile(string filename, string word);
+
+
 protected:
 
 	void writeTranslationTable(ostream &s);
@@ -52,7 +55,7 @@ protected:
 
 	void fsrefresh();
 
-	pair<vector<string>, vector<string> > getSentencePair(string &f, string &e);
+	SP getSentencePair();
 
 	void getUniqueWords();
 

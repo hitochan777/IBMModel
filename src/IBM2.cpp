@@ -7,7 +7,6 @@ IBM2::IBM2(char* ffilename, char* efilename):IBM1(ffilename,efilename){//call co
 void IBM2::EM(){
 	int n = 0;
 	double LL[2] = { 0 }; //log likelihood
-	string f, e;
 	pair<vector<string>, vector<string> > spair;
 
 	while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
@@ -17,13 +16,13 @@ void IBM2::EM(){
 
 		getInitializedCountTable(); //init every element of count table to zero
 		getInitializedTotalTable();
-		getInitializedCountAlignmentTable();
-		getInitializedTotalAlignmentTable();
+		initializeCountAlignmentTable();
+		initializeTotalAlignmentTable();
 
 		fsrefresh();
 
 		while (true) {
-			spair = getSentencePair(f, e);
+			spair = getSentencePair();
 			if (spair.first.empty() || spair.second.empty()) {
 				break;
 			}
@@ -63,10 +62,24 @@ void IBM2::EM(){
 	return;
 }
 
-void IBM2::getInitializedCountAlignmentTable(){
+void IBM2::initializeCountAlignmentTable(){
 
 }
 
-void IBM2::getInitializedTotalAlignmentTable(){
+void IBM2::initializeTotalAlignmentTable(){
 
+}
+
+SLP IBM2::getSentenceLengthPairs() {
+	unsigned int le,lf;
+	SLP slp;
+	fsrefresh();
+	string es, fs;
+	if (getline(ffin, fs) && getline(efin, es)) {
+		lf = Utility::split(fs,' ');
+		le = Utility::split(es,' ');
+		pair<unsigned int,unsigned int> p(le,lf);
+		slp.push_back(p);
+	}
+	return slp;
 }
