@@ -87,8 +87,8 @@ void IBM1::EM() {
 	//string f, e;
 	pair<vector<string>, vector<string> > spair;
 
-	while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
-
+	//while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
+	while (n < 2 || LL[n % 2] - LL[(n - 1) % 2] > 0.1) { //while not converged
 		n++;
 		LL[n % 2] = 0;
 
@@ -138,7 +138,7 @@ void IBM1::EM() {
 				this->setTranslationProbability(*eit, *fit, newval);
 			}
 		}
-		//cout << LL[n % 2] << endl;
+		cout <<"log:" <<LL[n % 2] << endl;
 		//cout<<LL[1]<<endl;
 	}
 	//cout<<n<<endl;

@@ -1,5 +1,0 @@
-hon->book:1
- ->house:1
-ie->house:1
-ore->my:1
-kono->this:1

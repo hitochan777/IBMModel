@@ -16,8 +16,8 @@ void IBM2::EM() {
 	double LL[2] = { 0 }; //log likelihood
 	pair<vector<string>, vector<string> > spair;
 
-	while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
-
+	//while (n < 2 || LL[(n - 1) % 2] < LL[n % 2]) { //while not converged
+	while (n < 2 || LL[n % 2] - LL[(n-1) % 2] > 0.1) { //while not converged
 		n++;
 		LL[n % 2] = 0;
 
