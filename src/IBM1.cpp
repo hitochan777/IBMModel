@@ -138,7 +138,7 @@ void IBM1::EM() {
 				this->setTranslationProbability(*eit, *fit, newval);
 			}
 		}
-		cout << LL[n % 2] << endl;
+		//cout << LL[n % 2] << endl;
 		//cout<<LL[1]<<endl;
 	}
 	//cout<<n<<endl;
@@ -205,9 +205,9 @@ double IBM1::getTranslationProbability(string e, string f) {
 	return t[p];
 }
 
-void IBM1::setWordCount(string e, string f, double prob) {
+void IBM1::setWordCount(string e, string f, double val) {
 	SSP p(e, f);
-	ct[p] = prob;
+	ct[p] = val;
 	return;
 }
 

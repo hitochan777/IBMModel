@@ -2,8 +2,13 @@
 
 IBM2::IBM2(char* ffilename, char* efilename) :
 		IBM1(ffilename, efilename) { //call constructor to base function
+	this->getSentenceLengthPairs();
 	initializeAlignmentDistributionTable();
 	EM();
+}
+
+IBM2::~IBM2() {
+
 }
 
 void IBM2::EM() {
@@ -35,8 +40,9 @@ void IBM2::EM() {
 			for (ui j = 0; j < ev.size(); ++j) {
 				double tmpZ = 0.0;
 				for (ui k = 0; k < fv.size(); ++k) {
-					tmpZ += this->getAlignmentProbability(k, j, ev.size(),
-							fv.size())
+
+					tmpZ += this->getAlignmentProbability(k, j + 1, ev.size(),
+							fv.size()-1)
 							* this->getTranslationProbability(ev[j], fv[k]);
 				}
 				z.push_back(tmpZ);
@@ -45,19 +51,19 @@ void IBM2::EM() {
 			int i = 0;
 			for (ui j = 0; j < ev.size(); ++j) {
 				for (ui k = 0; k < fv.size(); ++k) {
-					double p_jk_div_z = this->getAlignmentProbability(k, j,
-							ev.size(), fv.size())
+					double p_jk_div_z = this->getAlignmentProbability(k, j + 1,
+							ev.size(), fv.size()-1)
 							* this->getTranslationProbability(ev[j], fv[k])
 							/ z[i];
 					this->setWordCount(ev[j], fv[k],
 							this->getWordCount(ev[j], fv[k]) + p_jk_div_z);
 					this->setWordTotal(fv[k],
 							this->getWordTotal(fv[k]) + p_jk_div_z);
-					this->setCountAlignment(k, j, ev.size(), fv.size(),
-							this->getCountAlignment(k, j, ev.size(), fv.size())
-									+ p_jk_div_z);
-					this->setTotalAlignment(j, ev.size(), fv.size(),
-							this->getTotalAlignment(j, ev.size(), fv.size())
+					this->setCountAlignment(k, j + 1, ev.size(), fv.size()-1,
+							this->getCountAlignment(k, j + 1, ev.size(),
+									fv.size()-1) + p_jk_div_z);
+					this->setTotalAlignment(j + 1, ev.size(), fv.size()-1,
+							this->getTotalAlignment(j + 1, ev.size(), fv.size()-1)
 									+ p_jk_div_z);
 
 				}
@@ -131,7 +137,7 @@ void IBM2::getSentenceLengthPairs() {
 	ui le, lf;
 	fsrefresh();
 	string es, fs;
-	if (getline(ffin, fs) && getline(efin, es)) {
+	while (getline(ffin, fs) && getline(efin, es)) {
 		lf = Utility::split(fs, ' ');
 		le = Utility::split(es, ' ');
 		pair<ui, ui> p(le, lf);

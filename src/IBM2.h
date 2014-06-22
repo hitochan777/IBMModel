@@ -9,7 +9,7 @@ typedef map<pair<ui,pair<ui,ui> >,double> TATABLE;//total table for alignment to
 typedef CATABLE ADTABLE;//alignment distribution table
 typedef vector<pair<ui,ui> > SLP;//sencence length pairs (le,lf)'s
 
-class IBM2:IBM1{
+class IBM2:public IBM1{
 protected:
 	CATABLE cat;
 	TATABLE tat;
