@@ -1,0 +1,11 @@
+?->?:1
+groupe->Group:1
+M.->Mr:1
+PME->SMEs:1
+Le->The:1
+Nous->We:1
+et->and:1
+concurrence->competition:1
+ont->have:1
+politique->policy:1
+rapport->report:1
